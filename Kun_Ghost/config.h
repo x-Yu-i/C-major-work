@@ -9,7 +9,7 @@
 #define GAME_RES_PATH "./kun.rcc" //rcc文件路径
 #define GAME_ICON ":/res/app.ico"//图标加载路径
 #define GAME_RATE 10 //刷新间隔，帧率 单位毫秒
-#define GAME_OVER ""//游戏结束图片
+#define GAME_OVER ":/res/end.png"//游戏结束图片
 
 /********** 地图配置数据 **********/
 #define MAP_PATH ":/res/img_bg_level_2.jpg" //地图图片路径

@@ -119,7 +119,7 @@ void MainScene::paintEvent(QPaintEvent *)
     //只因哥被击毁游戏结束绘制游戏结束
     else
     {
-        painter.drawPixmap(GAME_WIDTH/2-100,GAME_HEIGHT/2-20,gameover);
+        painter.drawPixmap(GAME_WIDTH/2-80,GAME_HEIGHT/2-20,gameover);
     }
 
     //绘制子弹
