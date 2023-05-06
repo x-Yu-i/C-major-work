@@ -7,6 +7,7 @@
 #include "map.h"
 #include "kun.h"
 #include "ghost.h"
+#include "bomb.h"
 
 
 class MainScene : public QWidget
@@ -49,6 +50,9 @@ class MainScene : public QWidget
 
     //绘制只因哥
     Kun m_hero;
+
+    //爆炸数组
+    Bomb m_bombs[BOMB_NUM];
 
 public:
     MainScene(QWidget *parent = nullptr);
