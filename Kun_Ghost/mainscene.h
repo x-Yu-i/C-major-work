@@ -6,6 +6,7 @@
 #include <QTimer>
 #include "map.h"
 #include "kun.h"
+#include "ghost.h"
 
 
 class MainScene : public QWidget
@@ -27,6 +28,15 @@ class MainScene : public QWidget
 
     //鼠标移动事件
     void mouseMoveEvent(QMouseEvent *event);
+
+    //我爱罗出场
+    void enemyToScene();
+
+    //我爱罗数组
+    Ghost m_enemys[ENEMY_NUM];
+
+    //我爱罗出场间隔记录
+    int m_recorder;
 
     //设置定时器
     QTimer m_Timer;

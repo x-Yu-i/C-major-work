@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     bullet.cpp \
+    ghost.cpp \
     kun.cpp \
     main.cpp \
     mainscene.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     bullet.h \
     config.h \
+    ghost.h \
     kun.h \
     mainscene.h \
     map.h

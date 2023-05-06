@@ -20,7 +20,10 @@ void MainScene::initScene()
     //定时器设置
     m_Timer.setInterval(GAME_RATE);
 
+    m_recorder = 0;
 
+    //随机数种子
+    srand((unsigned int)time(NULL)); //头文件 #include <ctime>
 
 }
 
@@ -31,6 +34,9 @@ void MainScene::playGame()
 
     //监听定时器
     connect(&m_Timer,&QTimer::timeout,[=](){
+        //我爱罗出场
+        enemyToScene();
+
         //更新游戏中元素的坐标
         updatePosition();
 
@@ -57,6 +63,16 @@ void MainScene::updatePosition()
         }
     }
 
+    //我爱罗坐标计算
+    for(int i = 0 ; i< ENEMY_NUM;i++)
+    {
+        //非空闲我爱罗 更新坐标
+        if(m_enemys[i].m_Free == false)
+        {
+            m_enemys[i].updatePosition();
+        }
+    }
+
 }
 
 void MainScene::paintEvent(QPaintEvent *)
@@ -80,6 +96,14 @@ void MainScene::paintEvent(QPaintEvent *)
         }
     }
 
+    //绘制我爱罗
+    for(int i = 0 ; i< ENEMY_NUM;i++)
+    {
+        if(m_enemys[i].m_Free == false)
+        {
+            painter.drawPixmap(m_enemys[i].m_X,m_enemys[i].m_Y,m_enemys[i].m_enemy);
+        }
+    }
 }
 
 void MainScene::mouseMoveEvent(QMouseEvent *event)
@@ -106,6 +130,30 @@ void MainScene::mouseMoveEvent(QMouseEvent *event)
     }
     m_hero.setPosition(x,y);
 
+}
+
+void MainScene::enemyToScene()
+{
+    m_recorder++;
+    if(m_recorder < ENEMY_INTERVAL)
+    {
+        return;
+    }
+
+    m_recorder = 0;
+
+    for(int i = 0 ; i< ENEMY_NUM;i++)
+    {
+        if(m_enemys[i].m_Free)
+        {
+            //敌机空闲状态改为false
+            m_enemys[i].m_Free = false;
+            //设置坐标
+            m_enemys[i].m_X = rand() % (GAME_WIDTH - m_enemys[i].m_Rect.width());
+            m_enemys[i].m_Y = -m_enemys[i].m_Rect.height();
+            break;
+        }
+    }
 }
 
 MainScene::MainScene(QWidget *parent)
