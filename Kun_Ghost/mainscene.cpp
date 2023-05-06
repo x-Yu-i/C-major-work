@@ -25,6 +25,9 @@ void MainScene::initScene()
     //随机数种子
     srand((unsigned int)time(NULL)); //头文件 #include <ctime>
 
+    //加载游戏结束图片
+    gameover.load(GAME_OVER);
+
 }
 
 void MainScene::playGame()
@@ -54,7 +57,10 @@ void MainScene::updatePosition()
     m_map.mapPosition();
 
     //只因哥发射子弹
-    m_hero.shoot();
+    if(!m_hero.m_Free)
+    {
+        m_hero.shoot();
+    }
 
     //计算只因哥子弹坐标
     for(int i = 0 ;i < BULLET_NUM;i++)
@@ -110,7 +116,7 @@ void MainScene::paintEvent(QPaintEvent *)
     {
         painter.drawPixmap(m_hero.m_X,m_hero.m_Y,m_hero.m_Plane);
     }
-    //飞机被击毁游戏结束绘制游戏结束
+    //只因哥被击毁游戏结束绘制游戏结束
     else
     {
         painter.drawPixmap(GAME_WIDTH/2-100,GAME_HEIGHT/2-20,gameover);
@@ -156,7 +162,7 @@ void MainScene::paintEvent(QPaintEvent *)
 
 void MainScene::mouseMoveEvent(QMouseEvent *event)
 {
-    int x = event->x() - m_hero.m_Rect.width()*0.5; //鼠标位置 - 飞机矩形的一半
+    int x = event->x() - m_hero.m_Rect.width()*0.5; //鼠标位置 - 只因哥矩形的一半
     int y = event->y() - m_hero.m_Rect.height()*0.5;
 
     //边界检测
@@ -177,7 +183,7 @@ void MainScene::mouseMoveEvent(QMouseEvent *event)
         y = GAME_HEIGHT - m_hero.m_Rect.height();
     }
 
-    //设置飞机当前位置
+    //设置只因哥当前位置
     m_hero.setPosition(x,y);
 
 }
@@ -196,7 +202,7 @@ void MainScene::enemyToScene()
     {
         if(m_enemys[i].m_Free)
         {
-            //敌机空闲状态改为false
+            //我爱罗空闲状态改为false
             m_enemys[i].m_Free = false;
             //设置坐标
             m_enemys[i].m_X = rand() % (GAME_WIDTH - m_enemys[i].m_Rect.width());
@@ -208,24 +214,70 @@ void MainScene::enemyToScene()
 
 void MainScene::collisionDetection()
 {
-    //遍历所有非空闲的敌机
+    //遍历所有非空闲的我爱罗
     for(int i = 0 ;i < ENEMY_NUM;i++)
     {
         if(m_enemys[i].m_Free)
         {
-            //空闲飞机 跳转下一次循环
+            //空闲我爱罗 跳转下一次循环
             continue;
         }
 
-        //遍历所有 非空闲的子弹
-        for(int j = 0 ; j < BULLET_NUM;j++)
+        //如果只因哥与我爱罗相撞则只因哥爆炸，将状态设置为空闲
+        if(m_enemys[i].m_Rect.intersects(m_hero.m_Rect))
+        {
+            m_hero.m_Free = true;
+            for(int k = 0; k < BOMB_NUM; k++)
+            {
+                if(m_bombs[k].m_Free)
+                {
+                    //空闲的爆炸，可播放爆炸
+                    m_bombs[k].m_Free = false;
+                    //更新爆炸坐标
+                    m_bombs[k].m_X = m_enemys[i].m_X;
+                    m_bombs[k].m_Y = m_enemys[i].m_Y;
+                    break;
+                }
+            }
+        }
+
+        //遍历所有非空闲的我爱罗子弹
+        for(int j = 0 ; j < GHOST_BULLET_NUM ; j++)
+        {
+            if(m_enemys[i].m_bullets[j].m_Free)
+            {
+                //空闲子弹 跳转下一次循环
+                continue;
+            }
+            //如果子弹矩形框和只因哥矩形框相交，发生碰撞，同时变为空闲状态即可
+            if(m_enemys[i].m_bullets[j].m_Rect.intersects(m_hero.m_Rect))
+            {
+                m_enemys[i].m_bullets[j].m_Free = true;
+                m_hero.m_Free = true;
+                for(int k = 0; k < BOMB_NUM; k++)
+                {
+                    if(m_bombs[k].m_Free)
+                    {
+                        //空闲的爆炸，可播放爆炸
+                        m_bombs[k].m_Free = false;
+                        //更新爆炸坐标
+                        m_bombs[k].m_X = m_enemys[i].m_X;
+                        m_bombs[k].m_Y = m_enemys[i].m_Y;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //遍历所有非空闲的只因哥子弹
+        for(int j = 0 ; j < BULLET_NUM ; j++)
         {
             if(m_hero.m_bullets[j].m_Free)
             {
                 //空闲子弹 跳转下一次循环
                 continue;
             }
-            //如果子弹矩形框和敌机矩形框相交，发生碰撞，同时变为空闲状态即可
+            //如果子弹矩形框和我爱罗矩形框相交，发生碰撞，同时变为空闲状态即可
             if(m_enemys[i].m_Rect.intersects(m_hero.m_bullets[j].m_Rect))
             {
                 m_enemys[i].m_Free = true;
