@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/app.ico</file>
+        <file>res/bg.wav</file>
+        <file>res/bomb.wav</file>
+        <file>res/bomb-1.png</file>
+        <file>res/bomb-2.png</file>
+        <file>res/bomb-3.png</file>
+        <file>res/bomb-4.png</file>
+        <file>res/bomb-5.png</file>
+        <file>res/bomb-6.png</file>
+        <file>res/bomb-7.png</file>
+        <file>res/bullet_3.png</file>
+        <file>res/bullet_12.png</file>
+        <file>res/Ghost.png</file>
+        <file>res/img_bg_level_2.jpg</file>
+        <file>res/kun.png</file>
+    </qresource>
+</RCC>
