@@ -9,17 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bomb.cpp \
     bullet.cpp \
     ghost.cpp \
+    ghostbullet.cpp \
     kun.cpp \
     main.cpp \
     mainscene.cpp \
     map.cpp
 
 HEADERS += \
+    bomb.h \
     bullet.h \
     config.h \
     ghost.h \
+    ghostbullet.h \
     kun.h \
     mainscene.h \
     map.h

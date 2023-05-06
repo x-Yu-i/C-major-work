@@ -2,13 +2,17 @@
 #ifndef GHOST_H
 #define GHOST_H
 #include <QPixmap>
-
+#include "ghostbullet.h"
+#include "config.h"
 
 
 class Ghost
 {
 public:
     Ghost();
+
+    //发射子弹
+    void shoot();
 
     //更新坐标
     void updatePosition();
@@ -28,6 +32,12 @@ public:
 
     //速度
     int m_Speed;
+
+    //弹匣
+    Ghostbullet m_bullets[GHOST_BULLET_NUM];
+
+    //发射间隔记录
+    int m_recorder;
 
 };
 

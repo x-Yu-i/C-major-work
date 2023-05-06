@@ -23,11 +23,22 @@
 #define BULLET_NUM 30 //弹匣中子弹总数
 #define BULLET_INTERVAL 20 //发射子弹时间间隔
 
-/********** 敌机配置数据 **********/
+/********** 我爱罗配置数据 **********/
 #define ENEMY_PATH ":/res/Ghost.png" //敌机资源图片
-#define ENEMY_SPEED 5 //敌机移动速度
+#define ENEMY_SPEED 3 //敌机移动速度
 #define ENEMY_NUM 20 //敌机总数量
 #define ENEMY_INTERVAL 30 //敌机出场时间间隔
 
+/********** 爆炸配置数据 **********/
+#define BOMB_PATH ":/res/bomb-%1.png" //爆炸资源图片
+#define BOMB_NUM 20 //爆炸数量
+#define BOMB_MAX 7 //爆炸图片最大索引
+#define BOMB_INTERVAL 20 //爆炸切图时间间隔
+
+/********** 我爱罗子弹配置数据 **********/
+#define GHOST_BULLET_PATH ":/res/bullet_3.png" //子弹图片路径
+#define GHOST_BULLET_SPEED 5 //子弹移动速度
+#define GHOST_BULLET_NUM 50 //弹匣中子弹总数
+#define GHOST_BULLET_INTERVAL 80 //发射子弹时间间隔
 
 #endif // CONFIG_H

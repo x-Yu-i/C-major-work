@@ -16,6 +16,9 @@ Kun::Kun()
     m_Rect.setHeight(m_Plane.height());
     m_Rect.moveTo(m_X,m_Y);
 
+    //初始化飞机状态
+    m_Free = false;//表示飞机正在运作，如果后面被击中则变成闲置状态
+
     //初始化发射间隔记录
     m_recorder = 0;
 }

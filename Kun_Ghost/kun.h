@@ -32,6 +32,9 @@ public:
 
     //发射间隔记录
     int m_recorder;
+
+    //飞机状态
+    bool m_Free;
 };
 
 #endif // KUN_H

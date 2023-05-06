@@ -7,6 +7,7 @@
 #include "map.h"
 #include "kun.h"
 #include "ghost.h"
+#include "bomb.h"
 
 
 class MainScene : public QWidget
@@ -32,6 +33,9 @@ class MainScene : public QWidget
     //我爱罗出场
     void enemyToScene();
 
+    //碰撞检测
+    void collisionDetection();
+
     //我爱罗数组
     Ghost m_enemys[ENEMY_NUM];
 
@@ -46,6 +50,12 @@ class MainScene : public QWidget
 
     //绘制只因哥
     Kun m_hero;
+
+    //爆炸数组
+    Bomb m_bombs[BOMB_NUM];
+
+    //结束游戏对象
+    QPixmap gameover;
 
 public:
     MainScene(QWidget *parent = nullptr);
